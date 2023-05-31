@@ -21,6 +21,9 @@ const HomePage = () => {
     netlifyIdentity.on('logout', () => {
       setUser(null);
     });
+
+    // Open login modal on initial load
+    netlifyIdentity.open();
   }, []);
 
   const submitData = async () => {
@@ -42,25 +45,28 @@ const HomePage = () => {
 
   return (
     <div>
-      <p>google sheet test</p>
       {user ? (
-        <div>
+        <>
           <p>Welcome, {user.user_metadata.full_name}!</p>
           <button onClick={handleLogout}>Logout</button>
-        </div>
+          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Name" />
+          <input type="text" value={number} onChange={e => setNumber(e.target.value)} placeholder="Number" />
+          <button onClick={submitData}>Submit</button>
+          <button onClick={viewData}>View</button>
+          {data &&
+            data.map((row, index) => (
+              <div key={index}>
+                <p>Name: {row[0]}</p>
+                <p>Number: {row[1]}</p>
+              </div>
+            ))}
+        </>
       ) : (
-        <button onClick={handleLogin}>Login</button>
-      )}
-      <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Name" />
-      <input type="text" value={number} onChange={e => setNumber(e.target.value)} placeholder="Number" />
-      <button onClick={submitData}>Submit</button>
-      <button onClick={viewData}>View</button>
-      {data && data.map((row, index) => (
-        <div key={index}>
-          <p>Name: {row[0]}</p>
-          <p>Number: {row[1]}</p>
+        <div>
+          <p>Please log in to access the website.</p>
+          <button onClick={handleLogin}>Login</button>
         </div>
-      ))}
+      )}
     </div>
   );
 };
