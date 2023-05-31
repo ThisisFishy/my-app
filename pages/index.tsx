@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import netlifyIdentity from 'netlify-identity-widget';
 
 const HomePage = () => {
   const [name, setName] = useState('');
@@ -9,6 +10,11 @@ const HomePage = () => {
   const submitData = async () => {
     await axios.post('/api/submit', { name, number });
   };
+
+  useEffect(() => {
+    // Initialize Netlify Identity
+    netlifyIdentity.init();
+  }, []);
 
   const viewData = async () => {
     const response = await axios.get('/api/view');
