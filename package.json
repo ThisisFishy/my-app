@@ -7,6 +7,9 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/server": "^11.11.0",
+    "@mui/material": "^5.13.4",
     "axios": "^1.4.0",
     "googleapis": "^118.0.0",
     "netlify-identity-widget": "^1.9.2",
